@@ -14,7 +14,7 @@ const Signup = () => {
 		const length = value.length
 		const hasUpperCase = /[A-Z]/.test(value)
 		const hasLowerCase = /[a-z]/.test(value)
-		const hasNumbers = /\d/.test(value)
+		const hasNumbers = /[0-9]/.test(value)
 		const hasSymbols = /[!@#$%^&*(),.?":{}|<>]/.test(value)
 
 		const strength =
@@ -34,6 +34,7 @@ const Signup = () => {
 
 	const handleSignup = async () => {
 		try {
+			console.log("startOf")
 			const response = await fetch("http://localhost:3000/auth/signup", {
 				method: "POST",
 				headers: {
@@ -47,6 +48,7 @@ const Signup = () => {
 					type: "success",
 					message: "User registered successfully",
 				})
+				console.log("reached here")
 				navigate("/login")
 			} else {
 				const data = await response.json()

@@ -52,8 +52,6 @@ router.post("/signup", async (req, res) => {
 				.status(400)
 				.json({ error: "Invalid input data", validationErrors })
 		}
-
-		console.error(error.message)
 		res.status(500).json({ error: "Internal Server Error" })
 	}
 })
@@ -71,10 +69,7 @@ router.post("/login", async (req, res) => {
 
 		const passwordMatch = await bcrypt.compare(password, user.password)
 
-		console.log("Password Match Result:", passwordMatch)
-
 		if (!passwordMatch) {
-			console.log("Invalid Credentials")
 			return res.status(401).json({ error: "Invalid credentials" })
 		}
 

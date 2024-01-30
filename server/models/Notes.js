@@ -1,5 +1,5 @@
 const mongoose = require("mongoose")
-const todoSchema = new mongoose.Schema({
+const notesSchema = new mongoose.Schema({
 	title: {
 		type: String,
 		required: true,
@@ -26,6 +26,6 @@ const todoSchema = new mongoose.Schema({
 	},
 })
 
-const Todo = mongoose.model("Todo", todoSchema)
+const Notes = mongoose.model("Notes", notesSchema)
 
-module.exports = Todo
+module.exports = Notes

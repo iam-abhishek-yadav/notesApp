@@ -30,28 +30,32 @@ function App() {
 	return (
 		<>
 			<BrowserRouter>
-				<Header
-					isLoggedIn={isLoggedIn}
-					onLogout={handleLogout}
-				/>
-				<Routes>
-					<Route
-						path="/"
-						element={<LandingPage isLoggedIn={isLoggedIn} />}
+				<div>
+					<Header
+						isLoggedIn={isLoggedIn}
+						onLogout={handleLogout}
 					/>
-					<Route
-						path="/signup"
-						element={<Signup />}
-					/>
-					<Route
-						path="/login"
-						element={<Login onLogin={handleLogin} />}
-					/>
-					<Route
-						path="/notes"
-						element={<Notes isLoggedIn={isLoggedIn} />}
-					/>
-				</Routes>
+					<div className="my-2">
+						<Routes>
+							<Route
+								path="/"
+								element={<LandingPage isLoggedIn={isLoggedIn} />}
+							/>
+							<Route
+								path="/signup"
+								element={<Signup />}
+							/>
+							<Route
+								path="/login"
+								element={<Login onLogin={handleLogin} />}
+							/>
+							<Route
+								path="/notes"
+								element={<Notes />}
+							/>
+						</Routes>
+					</div>
+				</div>
 			</BrowserRouter>
 		</>
 	)

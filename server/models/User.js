@@ -16,10 +16,10 @@ const userSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 	},
-	todos: [
+	notes: [
 		{
 			type: mongoose.Schema.Types.ObjectId,
-			ref: "Todo",
+			ref: "Notes",
 		},
 	],
 })

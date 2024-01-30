@@ -26,7 +26,7 @@ const Login = ({ onLogin }) => {
 					type: "success",
 					message: "Login successful",
 				})
-				navigate("/todos")
+				navigate("/notes")
 			} else {
 				const data = await response.json()
 				if (data.error && data.error === "Invalid credentials") {

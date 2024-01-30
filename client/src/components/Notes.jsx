@@ -1,22 +1,43 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
+import AddNote from "./AddNote"
+import NotesList from "./NotesList"
 
-const Notes = ({ isLoggedIn }) => {
+const Notes = () => {
+	const [notes, setNotes] = useState([])
 	const navigate = useNavigate()
-
 	useEffect(() => {
-		if (!isLoggedIn) {
-			navigate("/login")
+		const fetchNotes = async () => {
+			try {
+				const token = localStorage.getItem("Authorization")
+				if (!token) {
+					navigate("/login")
+				}
+				const resp = await fetch("http://localhost:3000/api/v1/notes", {
+					method: "GET",
+					headers: {
+						authorization: `Bearer ${token}`,
+						"Content-Type": "application/json",
+					},
+				})
+				if (resp.ok) {
+					const data = await resp.json()
+					setNotes(data)
+				} else {
+					if (resp.status === 403) {
+						navigate("/login")
+					}
+				}
+			} catch (error) {
+				console.error(error.message)
+			}
 		}
-	}, [isLoggedIn, navigate])
-
+		fetchNotes()
+	}, [navigate])
 	return (
 		<div>
-			{isLoggedIn ? (
-				<div>Notes</div>
-			) : (
-				<p>You are not authenticated. Redirecting to login...</p>
-			)}
+			<AddNote />
+			<NotesList notes={notes} />
 		</div>
 	)
 }
