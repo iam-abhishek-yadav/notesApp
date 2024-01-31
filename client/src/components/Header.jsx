@@ -4,7 +4,7 @@ import notesLogo from "../asset/notesLogo.jpg"
 const Header = ({ isLoggedIn, onLogout }) => {
 	return (
 		<header className="bg-blue-500 text-white p-4 flex items-center justify-between">
-			<Link to="./">
+			<Link to="/">
 				<div className="flex items-center">
 					<img
 						src={notesLogo}
@@ -18,12 +18,12 @@ const Header = ({ isLoggedIn, onLogout }) => {
 				{!isLoggedIn ? (
 					<>
 						<Link
-							to="./signup"
+							to="/signup"
 							className="mx-2">
 							SignUp
 						</Link>
 						<Link
-							to="./login"
+							to="/login"
 							className="mx-2">
 							LogIn
 						</Link>
@@ -31,11 +31,11 @@ const Header = ({ isLoggedIn, onLogout }) => {
 				) : (
 					<>
 						<Link
-							to="./notes"
+							to="/notes"
 							className="mx-2">
 							Notes
 						</Link>
-						<Link to="./">
+						<Link to="/">
 							<div className="relative mx-2">
 								<button
 									onClick={onLogout}

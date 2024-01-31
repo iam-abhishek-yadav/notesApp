@@ -38,4 +38,48 @@ router.post("/notes", jwtAuth, async (req, res) => {
 	}
 })
 
+router.delete("/notes/:id", jwtAuth, async (req, res) => {
+	try {
+		const noteId = req.params.id
+		const noteToDelete = await Notes.findById(noteId)
+		if (!noteToDelete) {
+			return res.status(404).json({ error: "Note not found" })
+		}
+
+		const userId = noteToDelete.user
+		await User.findByIdAndUpdate(userId, {
+			$pull: { notes: noteId },
+		})
+		const deletedNote = await Notes.findByIdAndDelete(noteId)
+
+		res.json({ message: "Note deleted successfully", deletedNote })
+	} catch (error) {
+		console.error(error.message)
+		res.status(500).json({ error: "Internal Server Error" })
+	}
+})
+
+router.put("/notes/:id", jwtAuth, async (req, res) => {
+	try {
+		const noteId = req.params.id
+		const { title, description, status } = req.body
+
+		const noteToUpdate = await Notes.findById(noteId)
+		if (!noteToUpdate) {
+			return res.status(404).json({ error: "Note not found" })
+		}
+
+		noteToUpdate.title = title
+		noteToUpdate.description = description
+		noteToUpdate.status = status
+
+		const updatedNote = await noteToUpdate.save()
+
+		res.json(updatedNote)
+	} catch (error) {
+		console.error(error.message)
+		res.status(500).json({ error: "Internal Server Error" })
+	}
+})
+
 module.exports = router
