@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo:latest
+    container_name: mongo
+    volumes:
+      - mongo-data:/data/db
+
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: server
+    depends_on:
+      - mongo
+    environment:
+      MONGO_URI: mongodb://mongo:27017/mydatabase
+
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    container_name: client
+    ports:
+      - "5000:5000"
+    depends_on:
+      - server
+
+volumes:
+  mongo-data:
