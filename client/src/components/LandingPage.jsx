@@ -4,11 +4,11 @@ const LandingPage = ({ isLoggedIn }) => {
 	return (
 		<div className="flex items-center justify-center h-screen overflow-hidden">
 			<div className="flex flex-col items-center">
-				<h2 className="text-4xl font-bold mb-4">Welcome to the Notes App</h2>
+				<h2 className="text-4xl font-bold mb-4">Save your thoughts, wherever you are</h2>
 				<p className="text-lg text-gray-700 mb-8 text-center">
 					{isLoggedIn
 						? "Explore your notes and manage your tasks"
-						: "Sign up or log in to start managing your notes and tasks"}
+						: "SignUp or LogIn to start taking notes"}
 				</p>
 				{isLoggedIn ? (
 					<>
